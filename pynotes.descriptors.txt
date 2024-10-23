@@ -1,0 +1,32 @@
+[intro - simple descriptors]
+ 1. a simple descriptor is a class that defines a __get__ method
+ 2. using a simple descriptor requires assigning it to a class attribute
+
+[example: intro.1]
+class mydesc:
+  def __get__(self, obj, objType=None):
+    pass
+
+[example: intro.2]
+class DescHoldingClass:
+  RegularClassAttr = 123
+  DescriptorAttr = mydesc()
+
+[protocol: base]
+desc.__get__(self, obj, objType=None)
+desc.__set__(self, obj, value)
+desc.__delete__(self, obj)
+
+[protocol: optional]
+desc.__set_name__(self, owner, name)
+
+[data descriptors]
+ 1. a simple descriptor defines only the __get__ part of the protocol
+ 2. a data descriptor goes further and implements at least the __get__ and __set__ parts of the protocol
+ 3. the full protocol involves the __get__, __set__, and __delete__ parts of the protocol
+ 4. an additional optional part of the descriptor protol is the __set_name__ method, discussed later
+ 5. any class that defines a __get__ method is a descriptor, if it additionally defines a __set__ method it is a "data descriptor"
+ 6. simple descriptors and data descriptors are different in the language both in how they are used and interpreted
+ 7. data descriptors take precedence over normal attribute access, simple descriptors do not
+
+[TODO: full explanation of descriptor use and interpretation]
